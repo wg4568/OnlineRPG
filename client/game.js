@@ -1,24 +1,30 @@
 var canvas = new Canvas("game", fullscreen=true);
-var world = new Layer();
+var controls = new Controls(canvas.div);
+
+// Layers
+var world = new World();
 var entity = new Layer();
 var ui = new Layer();
-
-world_data = new Grid(100, 100, generator=function(posn) {
-	return Helpers.RandomInt(0, 255);
-});
 
 canvas.addLayer(world);
 canvas.addLayer(entity);
 canvas.addLayer(ui);
+
+world_data = new Grid(100, 100, generator=function(posn) {
+	return 1;
+});
 
 var c = Color.RandomNeon;
 var x = 10;
 
 setInterval(function() {
 
-	world_data.iterate(function(p, v) {
-		c.hue = Helpers.RandomInt(0, 255);
-		world.square(Vector.Multiply(p, x), x, c.formatHEX())
-	});
+	var mousePos = world.canvasToWorld(controls.mousePos);
+	var c = "red";
 
-}, 1000 / 30);
+	if (controls.mouseHeld(Mousecodes.LEFT)) c = "blue";
+
+	world.clear();
+	world.square(mousePos, 50, c);
+
+}, 1);
