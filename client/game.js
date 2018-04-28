@@ -10,8 +10,10 @@ canvas.addLayer(world);
 canvas.addLayer(entity);
 canvas.addLayer(ui);
 
+var TILESIZE = 16;
+
 world_data = new Grid(100, 100, generator=function(posn) {
-	return 1;
+	return Helpers.RandomInt(0, 10);
 });
 
 var c = Color.RandomNeon;
@@ -19,12 +21,6 @@ var x = 10;
 
 setInterval(function() {
 
-	var mousePos = world.canvasToWorld(controls.mousePos);
-	var c = "red";
-
-	if (controls.mouseHeld(Mousecodes.LEFT)) c = "blue";
-
-	world.clear();
-	world.square(mousePos, 50, c);
+	world.fill(c.formatHEX());
 
 }, 1);

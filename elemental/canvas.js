@@ -1,4 +1,3 @@
-
 class Canvas {
 	constructor(id, fullscreen=false) {
 		this.id = id;
