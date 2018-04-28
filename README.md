@@ -1,3 +1,3 @@
 # OnlineRPG
 
-Online RPG
+An online RPG written in JavaScript
