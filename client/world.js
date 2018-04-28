@@ -19,7 +19,7 @@ class World extends Layer {
 		this.context.fillStyle = color;
 		this.context.fillRect(cposn.x, cposn.y, size, size);
 	}
-	
+
 	sprite(posn, sprite, rotation=0, scale=0) {
 		var cposn = this.worldToCanvas(posn)
 		sprite.drawOnLayer(this, cposn);
