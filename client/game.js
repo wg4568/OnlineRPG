@@ -20,6 +20,8 @@ world_data = new Grid(100, 100, generator=function(posn) {
 
 world.posn = new Vector(1400, 1400);
 
+var greyPosn = null;
+
 Timer.Start(function() {
 
 	if (controls.keyHeld(Keycodes.LEFT))  world.posn.x -= SPEED;
@@ -50,13 +52,14 @@ Timer.Start(function() {
 		Math.floor(selPosn.y / TILESIZE) * TILESIZE,
 	)
 
-	SelectorRed.draws = SelectorGrey.draws;
-	if (controls.mouseHeld(Mousecodes.LEFT)) {
-		world.sprite(selPosn, SelectorRed);
-		SelectorGrey.draws = SelectorRed.draws;
-	} else {
-		world.sprite(selPosn, SelectorGrey);
-		SelectorRed.draws = SelectorGrey.draws;
+	world.sprite(selPosn, SelectorRed);
+
+	if (controls.mousePressed(Mousecodes.LEFT)) {
+		greyPosn = selPosn;
 	}
+
+	if (greyPosn != null) world.sprite(greyPosn, SelectorGrey);
+
+	controls.frame();
 
 });
