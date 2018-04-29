@@ -64,3 +64,66 @@ SpriteMappings.forEach(function(s) {
 		s.permaScale(4);
 	};
 });
+
+
+var LoaderPlayerLeft = [
+	new Sprite.Image("sprites/player/left/3.png"),
+	new Sprite.Image("sprites/player/left/2.png"),
+	new Sprite.Image("sprites/player/left/1.png")
+];
+
+var LoaderPlayerRight = [
+	new Sprite.Image("sprites/player/right/3.png"),
+	new Sprite.Image("sprites/player/right/2.png"),
+	new Sprite.Image("sprites/player/right/1.png")
+];
+
+var LoaderPlayerUp = [
+	new Sprite.Image("sprites/player/backwards/3.png"),
+	new Sprite.Image("sprites/player/backwards/2.png"),
+	new Sprite.Image("sprites/player/backwards/1.png")
+];
+
+var LoaderPlayerDown = [
+	new Sprite.Image("sprites/player/forwards/3.png"),
+	new Sprite.Image("sprites/player/forwards/2.png"),
+	new Sprite.Image("sprites/player/forwards/1.png")
+];
+
+var PlayerStandLeft  = LoaderPlayerLeft[2];
+var PlayerStandRight = LoaderPlayerRight[2];
+var PlayerStandUp    = LoaderPlayerUp[2];
+var PlayerStandDown  = LoaderPlayerDown[2];
+
+var PlayerWalkLeft = new Sprite.Animation(LoaderPlayerLeft, 7);
+var PlayerWalkRight = new Sprite.Animation(LoaderPlayerRight, 7);
+var PlayerWalkUp = new Sprite.Animation(LoaderPlayerUp, 7);
+var PlayerWalkDown = new Sprite.Animation(LoaderPlayerDown, 7);
+
+LoaderPlayerLeft.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(2);
+		PlayerWalkLeft.render();
+	}
+});
+
+LoaderPlayerRight.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(2);
+		PlayerWalkRight.render();
+	}
+});
+
+LoaderPlayerUp.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(2);
+		PlayerWalkUp.render();
+	}
+});
+
+LoaderPlayerDown.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(2);
+		PlayerWalkDown.render();
+	}
+});
