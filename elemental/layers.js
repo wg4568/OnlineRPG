@@ -66,20 +66,13 @@ class Layer {
 		this.context.fillStyle = color;
 		this.context.fillRect(posn.x, posn.y, size, size);
 	}
-	
+
+	rect(posn, width, height, color) {
+		this.context.fillStyle = color;
+		this.context.fillRect(posn.x, posn.y, width, height);
+	}
+
 	sprite(posn, sprite, rotation=0, scale=0) {
 		sprite.drawOnLayer(this, posn);
-	}
-}
-
-Layer.World = class extends Layer {
-	constructor() {
-		this.super();
-	}
-}
-
-Layer.UI = class extends Layer {
-	constructor() {
-		this.super();
 	}
 }
