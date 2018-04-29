@@ -11,6 +11,41 @@ var Sprites = {
 	DirtCorderR: new Sprite.Image("sprites/dirtborderR.png")
 };
 
+var SelectorSpritesRed = [
+	new Sprite.Image("sprites/selector2/005.png"),
+	new Sprite.Image("sprites/selector2/004.png"),
+	new Sprite.Image("sprites/selector2/003.png"),
+	new Sprite.Image("sprites/selector2/002.png"),
+	new Sprite.Image("sprites/selector2/001.png"),
+	new Sprite.Image("sprites/selector2/000.png")
+];
+
+var SelectorSpritesGrey = [
+	new Sprite.Image("sprites/selector/005.png"),
+	new Sprite.Image("sprites/selector/004.png"),
+	new Sprite.Image("sprites/selector/003.png"),
+	new Sprite.Image("sprites/selector/002.png"),
+	new Sprite.Image("sprites/selector/001.png"),
+	new Sprite.Image("sprites/selector/000.png")
+];
+
+var SelectorRed = new Sprite.Animation(SelectorSpritesRed, 3);
+var SelectorGrey = new Sprite.Animation(SelectorSpritesGrey, 3);
+
+SelectorSpritesRed.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(4);
+		SelectorRed.render();
+	}
+})
+
+SelectorSpritesGrey.forEach(function(s) {
+	s.onLoad = function() {
+		s.permaScale(4);
+		SelectorGrey.render();
+	}
+})
+
 var SpriteMappings = [
 	Sprites.Grass,
 	Sprites.Dirt,

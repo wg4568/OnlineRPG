@@ -1,4 +1,3 @@
-// file:///C:/Users/wg456/Documents/OnlineRPG/index.html
 var canvas = new Canvas("game", fullscreen=true);
 var controls = new Controls(canvas.div);
 
@@ -12,14 +11,14 @@ canvas.addLayer(entity);
 canvas.addLayer(ui);
 
 var TILESIZE = 64;
-var SPEED = 10;
+var SPEED = 5;
 
 world_data = new Grid(100, 100, generator=function(posn) {
-	return Helpers.RandomInt(0, 10);
+	return 0;
+	// return Helpers.RandomInt(0, 10);
 });
 
-var c = Color.RandomNeon;
-var x = 10;
+world.posn = new Vector(1400, 1400);
 
 Timer.Start(function() {
 
@@ -44,5 +43,20 @@ Timer.Start(function() {
 		world.sprite(world_posn, sprite);
 
 	});
+
+	var selPosn = world.canvasToWorld(controls.mousePos);
+	var selPosn = new Vector(
+		Math.floor(selPosn.x / TILESIZE) * TILESIZE,
+		Math.floor(selPosn.y / TILESIZE) * TILESIZE,
+	)
+
+	SelectorRed.draws = SelectorGrey.draws;
+	if (controls.mouseHeld(Mousecodes.LEFT)) {
+		world.sprite(selPosn, SelectorRed);
+		SelectorGrey.draws = SelectorRed.draws;
+	} else {
+		world.sprite(selPosn, SelectorGrey);
+		SelectorRed.draws = SelectorGrey.draws;
+	}
 
 });
