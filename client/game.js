@@ -3,10 +3,18 @@ var controls = new Controls(canvas.div);
 
 // Layers
 var world = new World();
-var entity = new Layer();
-var ui = new Layer();
+var selector = new Layer();
+var entity = new World();
+var ui = new UI();
+
+var health_bar = new HealthBar(Pins.TopRight, new Vector(30, 30), 300, 40, 100, bgc="#000000", fgc="#ff0000", value=100, edge=5);
+var mana_bar = new HealthBar(Pins.TopRight, new Vector(30, 80), 300, 40, 100, bgc="#000000", fgc="#0000ff", value=100, edge=5);
+
+ui.addElement(health_bar);
+ui.addElement(mana_bar);
 
 canvas.addLayer(world);
+canvas.addLayer(selector);
 canvas.addLayer(entity);
 canvas.addLayer(ui);
 
@@ -15,14 +23,19 @@ var SPEED = 5;
 
 world_data = new Grid(100, 100, generator=function(posn) {
 	return 0;
-	// return Helpers.RandomInt(0, 10);
 });
 
 world.posn = new Vector(1400, 1400);
 
 var greyPosn = null;
 
+var p = new Vector(1216, 1280);
+
 Timer.Start(function() {
+
+	ui.clear();
+	selector.clear();
+	entity.clear();
 
 	if (controls.keyHeld(Keycodes.LEFT))  world.posn.x -= SPEED;
 	if (controls.keyHeld(Keycodes.RIGHT)) world.posn.x += SPEED;
@@ -33,6 +46,8 @@ Timer.Start(function() {
 	var xmax = Math.floor((world.posn.x + (world.width * 2)) / TILESIZE) + 1;
 	var ymin = Math.floor((world.posn.y - (world.height / 2)) / TILESIZE) - 1;
 	var ymax = Math.floor((world.posn.y + (world.height * 2)) / TILESIZE) + 1;
+
+	entity.posn = world.posn;
 
 	if (xmin < 0) xmin = 0;
 	if (ymin < 0) ymin = 0;
@@ -52,13 +67,21 @@ Timer.Start(function() {
 		Math.floor(selPosn.y / TILESIZE) * TILESIZE,
 	)
 
-	world.sprite(selPosn, SelectorRed);
+
+	selector.sprite(world.worldToCanvas(selPosn), SelectorRed);
 
 	if (controls.mousePressed(Mousecodes.LEFT)) {
 		greyPosn = selPosn;
 	}
 
-	if (greyPosn != null) world.sprite(greyPosn, SelectorGrey);
+	if (greyPosn != null) {
+		selector.sprite(world.worldToCanvas(greyPosn), SelectorGrey);
+	}
+	
+	p.x += 1;
+	entity.sprite(p, PlayerWalkRight);
+
+	ui.draw();
 
 	controls.frame();
 
