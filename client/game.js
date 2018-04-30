@@ -37,10 +37,11 @@ Timer.Start(function() {
 	selector.clear();
 	entity.clear();
 
-	if (controls.keyHeld(Keycodes.LEFT))  world.posn.x -= SPEED;
-	if (controls.keyHeld(Keycodes.RIGHT)) world.posn.x += SPEED;
-	if (controls.keyHeld(Keycodes.UP))    world.posn.y -= SPEED;
-	if (controls.keyHeld(Keycodes.DOWN))  world.posn.y += SPEED;
+	var c = false;
+	if (controls.keyHeld(Keycodes.LEFT))  world.posn.x -= SPEED; c = true;
+	if (controls.keyHeld(Keycodes.RIGHT)) world.posn.x += SPEED; c = true;
+	if (controls.keyHeld(Keycodes.UP))    world.posn.y -= SPEED; c = true;
+	if (controls.keyHeld(Keycodes.DOWN))  world.posn.y += SPEED; c = true;
 
 	var xmin = Math.floor((world.posn.x - (world.width / 2)) / TILESIZE) - 1;
 	var xmax = Math.floor((world.posn.x + (world.width * 2)) / TILESIZE) + 1;
@@ -52,14 +53,16 @@ Timer.Start(function() {
 	if (xmin < 0) xmin = 0;
 	if (ymin < 0) ymin = 0;
 
-	world_data.iterateRange(xmin, xmax, ymin, ymax, function(p, v) {
+	if (c) {
+		world_data.iterateRange(xmin, xmax, ymin, ymax, function(p, v) {
 
-		var world_posn = Vector.Multiply(p, TILESIZE);
-		var sprite = SpriteMappings[v];
+			var world_posn = Vector.Multiply(p, TILESIZE);
+			var sprite = SpriteMappings[v];
 
-		world.sprite(world_posn, sprite);
+			world.sprite(world_posn, sprite);
 
-	});
+		});		
+	}
 
 	var selPosn = world.canvasToWorld(controls.mousePos);
 	var selPosn = new Vector(
@@ -79,7 +82,7 @@ Timer.Start(function() {
 	}
 	
 	p.x += 1;
-	entity.sprite(p, PlayerWalkRight);
+	// entity.sprite(p, PlayerWalkRight);
 
 	ui.draw();
 
